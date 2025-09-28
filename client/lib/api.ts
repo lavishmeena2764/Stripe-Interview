@@ -45,7 +45,7 @@ async function safeFetch<T>(
   }
 }
 
-const BASE = 'http://localhost:5173';
+const BASE = process.env.BASE_URL || 'http://localhost:5173';
 
 async function postForm(path: string, form: FormData) {
   const res = await fetch(`${BASE}${path}`, { method: 'POST', body: form });
