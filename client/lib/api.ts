@@ -45,8 +45,9 @@ async function safeFetch<T>(
   }
 }
 
-const BASE = process.env.BASE_URL || 'http://localhost:5173';
+const BASE = import.meta.env.VITE_BASE_URL || 'http://localhost:5173';
 
+console.log(BASE);
 async function postForm(path: string, form: FormData) {
   const res = await fetch(`${BASE}${path}`, { method: 'POST', body: form });
   if (!res.ok) throw new Error(await res.text());
