@@ -8,7 +8,7 @@ A full-stack application that provides an AI-powered interview experience. Candi
 
 **You can access the live deployed application here:**
 
-[**https://stripe-interview.netlify.app/**](https://stripe-interview.netlify.app/)
+[**https://swipe-interview.netlify.app/**](https://swipe-interview.netlify.app/)
 
 ---
 
