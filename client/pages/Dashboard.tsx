@@ -114,7 +114,7 @@ export default function DashboardPage() {
   return (
     <AppShell>
       <div className="space-y-6">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between flex-col md:flex-row gap-4">
           <h1 className="text-2xl font-semibold">AI-Powered Dashboard</h1>
           <div className="flex gap-2 items-center">
             <Input
@@ -199,7 +199,7 @@ export default function DashboardPage() {
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent
           className={cn(
-            "fixed bottom-4 right-4 top-auto left-auto w-[525px] max-w-[90vw] h-[85vh] flex flex-col bg-card-background", // Custom positioning and fixed size
+            "fixed bottom-4 right-4 top-auto left-auto w-[460px] md:w-[525px] h-[120vh] md:h-[85vh] flex flex-col bg-card-background", // Custom positioning and fixed size
             "translate-x-0 translate-y-0 duration-300 data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right data-[state=closed]:slide-out-to-bottom data-[state=open]:animate-in data-[state=open]:slide-in-from-right data-[state=open]:slide-in-from-bottom" // Animations
           )}
           style={{ transform: 'none' }} 

@@ -97,14 +97,13 @@ export default function InterviewPage() {
     } catch (error) {
       console.error("Failed to process resume or generate questions:", error);
       alert("There was an error processing your resume. Please try again.");
-      setLoadingStatus("idle"); // Reset on error
+      setLoadingStatus("idle"); 
     }
   }
 
   async function onSubmitAnswer() {
     if (!currentQuestion || !answer.trim() || !sessionId) return;
     try {
-      // 1. First, save the answer to the backend
       await Api.saveAnswer({
         sessionId,
         questionId: currentQuestion.id,
@@ -140,7 +139,6 @@ export default function InterviewPage() {
     };
 
   useEffect(() => {
-      // When the last question is answered, the status becomes 'completed'
     if (!uploadOpen && status === 'completed' && finalScore === null && !evaluationError) {
       evaluateInterview();
     }
@@ -151,7 +149,7 @@ export default function InterviewPage() {
       dispatch(
         interviewActions.submitAnswer({
           questionId: currentQuestion.id,
-          answer: answer || "", // Submit whatever is in the textarea, or nothing
+          answer: answer || "",
         })
       );
       
@@ -161,9 +159,7 @@ export default function InterviewPage() {
   }, [status, timeRemaining, currentQuestion, answer, dispatch]);
 
   useEffect(() => {
-    // When the upload dialog closes AND the interview is ready to begin...
     if (!uploadOpen && status === "collecting" && questions.length > 0) {
-      // ...then dispatch the start action.
       dispatch(interviewActions.startInterview());
     }
   }, [uploadOpen, status, questions, dispatch]);
@@ -171,15 +167,15 @@ export default function InterviewPage() {
   const welcomeOpen = useSelector((s: RootState) => s.ui.welcomeBackOpen);
  function getScoreVariant(score?: number | null): "default" | "sec" | "destructive" {
   if (score === null || score === undefined) {
-    return "destructive"; // Gray for N/A
+    return "destructive";
   }
   if (score >= 75) {
-    return "default"; // Green (default will be styled as green)
+    return "default"; 
   }
   if (score >= 35) {
-    return "sec"; // Yellow (secondary will be styled as yellow)
+    return "sec";
   }
-  return "destructive"; // Red
+  return "destructive";
 }
 
   return (
@@ -326,10 +322,8 @@ export default function InterviewPage() {
         </DialogContent>
       </Dialog>
       
-      {/* This is the dialog with the corrected structure */}
       <Dialog open={uploadOpen} onOpenChange={(isOpen) => {
           setUploadOpen(isOpen);
-          // If the dialog is being closed, navigate to the dashboard
           if (!isOpen) {
             navigate("/");
           }
@@ -409,7 +403,6 @@ export default function InterviewPage() {
             {loadingStatus === "parsing" && <p className="text-sm text-muted-foreground animate-pulse">Parsing your resume...</p>}
             {loadingStatus === "generating" && <p className="text-sm text-muted-foreground animate-pulse">Generating your interview questions...</p>}
             
-            {/* The start button is only visible when not loading */}
             {loadingStatus !== "parsing" && loadingStatus !== "generating" && (
               <>
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
@@ -435,22 +428,6 @@ export default function InterviewPage() {
               </>
             )}
           </div>
-          {/* <div className="mt-4 flex items-center justify-between">
-            <div className="flex items-center gap-2 text-xs text-muted-foreground">
-              <Badge variant="secondary">Easy 20s</Badge>
-              <Badge variant="secondary">Medium 60s</Badge>
-              <Badge variant="secondary">Hard 120s</Badge>
-            </div>
-            <Button
-              disabled={!canStart || questions.length === 0}
-              onClick={() => {
-                setUploadOpen(false);
-                dispatch(interviewActions.startInterview(sessionId));
-              }}
-            >
-              Start Interview
-            </Button>
-          </div> */}
         </DialogContent>
       </Dialog>
 
@@ -468,7 +445,6 @@ export default function InterviewPage() {
         </div>
       )}
       
-      {/* --- ADDED: Dialog for the "Evaluating..." state --- */}
       <Dialog open={status === 'evaluating'}>
         <DialogContent className="bg-card-background">
           <DialogHeader>
